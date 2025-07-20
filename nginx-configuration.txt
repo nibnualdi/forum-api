@@ -48,7 +48,7 @@ server {
         server_name sixty-ads-repeat-truly.a276.dcdg.xyz www.sixty-ads-repeat-truly.a276.dcdg.xyz;
 
         location / {
-                proxy_pass http://localhost:5000; # your app's port
+                proxy_pass http://0.0.0.0:5000; # your app's port
                 proxy_http_version 1.1;
                 proxy_set_header Upgrade $http_upgrade;
                 proxy_set_header Connection 'upgrade';
@@ -58,8 +58,8 @@ server {
                 # limit_req zone=one;
         }
 
-        location /threads/ {
-                proxy_pass http://localhost:5000; # your app's port
+        location /threads {
+                proxy_pass http://0.0.0.0:5000; # your app's port
                 proxy_http_version 1.1;
                 proxy_set_header Upgrade $http_upgrade;
                 proxy_set_header Connection 'upgrade';
