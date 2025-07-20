@@ -22,8 +22,6 @@
 limit_req_zone $binary_remote_addr zone=one:10m rate=90r/m;
 
 server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
 
         # SSL configuration
         #
@@ -46,7 +44,8 @@ server {
         # Add index.php to the list if you are using PHP
         index index.html index.htm index.nginx-debian.html;
 
-        server_name _;
+        # server_name _;
+        server_name sixty-ads-repeat-truly.a276.dcdg.xyz www.sixty-ads-repeat-truly.a276.dcdg.xyz;
 
         location / {
                 proxy_pass http://localhost:5000; # your app's port
@@ -87,6 +86,15 @@ server {
         #location ~ /\.ht {
         #       deny all;
         #}
+
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/sixty-ads-repeat-truly.a276.dcdg.xyz/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/sixty-ads-repeat-truly.a276.dcdg.xyz/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+
 }
 
 
@@ -108,3 +116,25 @@ server {
 #               try_files $uri $uri/ =404;
 #       }
 #}
+
+
+server {
+    if ($host = www.sixty-ads-repeat-truly.a276.dcdg.xyz) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    if ($host = sixty-ads-repeat-truly.a276.dcdg.xyz) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        server_name sixty-ads-repeat-truly.a276.dcdg.xyz www.sixty-ads-repeat-truly.a276.dcdg.xyz;
+    return 404; # managed by Certbot
+
+
+
+
+}
